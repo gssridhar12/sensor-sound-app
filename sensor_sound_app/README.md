@@ -1,16 +1,40 @@
-# sensor_sound_app
+# Sensor Sound Control
 
-A new Flutter project.
+Control sounds and tempo using device sensors!
+
+## Features
+
+    Explore a list of sounds from Freesound.org.
+    Play sounds with a tap.
+    Adjust playback tempo based on device movement.
+
+## Best Practices
+
+    Clear Code Structure: The code is organized into separate components (UI, data fetching, sensor handling) for better maintainability.
+
+## Specific Enhancements
+
+    Sound Caching: Cache fetched sounds for offline use and faster loading.
+    Alternative Tempo Mappings: Explore more fine-tuned tempo mapping techniques for a more responsive experience.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+    Clone the repository: git clone https://github.com/your-username/sensor_sound_app.git
 
-A few resources to get you started if this is your first Flutter project:
+    Install dependencies: flutter pub get
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    Run the app: flutter run
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usage
+
+    Launch the app.
+    The app will fetch a list of sounds from Freesound.org.
+    Tap on a sound to play it.
+    Move your device to adjust the playback tempo.
+    Tap the pause/play button to pause or resume playback.
+    Tap a different sound to switch playback.
+
+## Additional Notes
+
+    The app requires a device with accelerometer sensors.
+    An internet connection is needed to fetch sounds.

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:http/http.dart' as http;
 
 import 'dart:async';
-import 'dart:convert';
 
 class SensorDataListener extends StatefulWidget {
   final Function(AccelerometerEvent) onData;

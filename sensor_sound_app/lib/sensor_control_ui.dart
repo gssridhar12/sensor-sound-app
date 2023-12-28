@@ -2,31 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:http/http.dart' as http;
 import 'package:sensors/sensors.dart';
+
 import 'dart:convert';
 
-import 'package:flutter/animation.dart';
-import 'sensor_data_listener.dart';
-
-class Sound {
-  final int id; // Adjust based on actual API response properties
-  final String name;
-  final String username;
-  final List tags;
-
-  Sound(
-      {required this.id,
-      required this.name,
-      required this.username,
-      required this.tags}); // Adjust constructor accordingly
-
-  factory Sound.fromJson(Map<String, dynamic> json) {
-    return Sound(
-        id: json['id'],
-        name: json['name'],
-        username: json['username'],
-        tags: json['tags']);
-  }
-}
+import 'package:sensor_sound_app/sensor_data_listener.dart';
+import 'package:sensor_sound_app/models/sound.dart';
 
 class SensorControlUI extends StatefulWidget {
   const SensorControlUI({Key? key}) : super(key: key);
@@ -125,6 +105,9 @@ class _SensorControlUIState extends State<SensorControlUI>
                       final sound = snapshot.data![index];
 
                       return Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1.0),
+                        ),
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Row(
                           children: [
@@ -160,15 +143,6 @@ class _SensorControlUIState extends State<SensorControlUI>
                                 ],
                               ),
                             ),
-                            // Wrap(
-                            //   spacing: 8.0,
-                            //   children: sound.tags
-                            //       .map((tag) => Chip(
-                            //             label: Text(tag),
-                            //             backgroundColor: Colors.blueAccent[100],
-                            //           ))
-                            //       .toList(),
-                            // ),
                           ],
                         ),
                       );
@@ -221,22 +195,20 @@ class _SensorControlUIState extends State<SensorControlUI>
 
   void _updateTempoFromSensor(AccelerometerEvent event) {
     final combinedSensorValue =
-      (event.x + event.y + event.z) / 3; // Simple averaging
-    final newTempo = _mapSensorValueToTempo(
-        combinedSensorValue); 
+        (event.x + event.y + event.z) / 3; // Simple averaging
+    final newTempo = _mapSensorValueToTempo(combinedSensorValue);
     _tempoController.animateTo(newTempo);
   }
 
   double _mapSensorValueToTempo(double sensorValue) {
-  // Clamp sensor value to -1 to 1 range
-  sensorValue = sensorValue.clamp(-1.0, 1.0);
+    // Clamp sensor value to -1 to 1 range
+    sensorValue = sensorValue.clamp(-1.0, 1.0);
 
-  // Apply a linear mapping for unbiased tempo response
-  final adjustedSensorValue = (sensorValue + 1) / 2; // Shift to 0 to 1 range
-  const tempoRange = 7.75; // 8.0 - 0.25
-  return 0.25 + tempoRange * adjustedSensorValue;
-}
-
+    // Apply a linear mapping for unbiased tempo response
+    final adjustedSensorValue = (sensorValue + 1) / 2; // Shift to 0 to 1 range
+    const tempoRange = 7.75; // 8.0 - 0.25
+    return 0.25 + tempoRange * adjustedSensorValue;
+  }
 
   void _onMusicDone() {
     _tempoController.stop();
